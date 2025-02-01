@@ -45,7 +45,6 @@ public class Player : MonoBehaviour
         if (other.gameObject.tag == "Ground")
         {
             isGrounded = true;
-            Debug.Log("Grounded");
         }
     }
 
@@ -54,7 +53,6 @@ public class Player : MonoBehaviour
         if (other.gameObject.tag == "Ground")
         {
             isGrounded = false;
-            Debug.Log("Grounded");
         }
     }
 }
