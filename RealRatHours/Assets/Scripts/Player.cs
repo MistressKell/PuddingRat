@@ -10,18 +10,21 @@ public class Player : MonoBehaviour
     public float speed = 5f;
     public bool isGrounded;
     private Rigidbody rb;
+
+    public bool canMove;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         isGrounded = true;
+        canMove = true;
         jump = new Vector3(0f, 2f, 0);
     }
 
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && canMove)
         {
             Jump();
         }
@@ -29,15 +32,18 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-        Vector3 movement = new Vector3(horizontalInput, 0f, verticalInput) * speed;
-        rb.MovePosition(rb.position + movement * Time.fixedDeltaTime);
+        if (canMove)
+        {
+            float horizontalInput = Input.GetAxis("Horizontal");
+            float verticalInput = Input.GetAxis("Vertical");
+            Vector3 movement = new Vector3(horizontalInput, 0f, verticalInput) * speed;
+            rb.MovePosition(rb.position + movement * Time.fixedDeltaTime);
+        }
     }
 
     void Jump()
     {
-        rb.AddForce(jump * jumpForce);
+            rb.AddForce(jump * jumpForce);
     }
 
     void OnCollisionEnter(Collision other)
